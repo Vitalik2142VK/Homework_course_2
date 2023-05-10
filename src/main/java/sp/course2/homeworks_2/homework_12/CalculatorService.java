@@ -5,31 +5,22 @@ import org.springframework.stereotype.Service;
 @Service
 public class CalculatorService {
 
-    private final Calculator calculator;
-
-    public CalculatorService() {
-        calculator = new Calculator();
-    }
-
     public String plus(float number1, float number2) {
-        calculator.getNumbers(number1, number2);
-        return number1 + " + " + number2 + " = " + calculator.plus();
+        return number1 + " + " + number2 + " = " + (number1+number2);
     }
 
     public String minus(float number1, float number2) {
-        calculator.getNumbers(number1, number2);
-        return number1 + " - " + number2 + " = " + calculator.minus();
+        return number1 + " - " + number2 + " = " + (number1-number2);
     }
 
     public String multiply(float number1, float number2) {
-        calculator.getNumbers(number1, number2);
-        return number1 + " * " + number2 + " = " + calculator.multiply();
+        return number1 + " * " + number2 + " = " + (number1*number2);
     }
 
     public String divide(float number1, float number2) {
-        calculator.getNumbers(number1, number2);
         try {
-            return number1 + " / " + number2 + " = " + calculator.divide();
+            if (number2 == 0) throw new NumLessThanZero("Делить на 0 нельзя!!!");
+            return number1 + " / " + number2 + " = " + (number1/number2);
         } catch (NumLessThanZero ex) {
             return ex.getMessage();
         }

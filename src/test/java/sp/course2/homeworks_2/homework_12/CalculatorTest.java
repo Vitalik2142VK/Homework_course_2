@@ -8,40 +8,39 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class CalculatorTest {
     private Float number1, number2;
-    private Calculator calculator;
+    private CalculatorService calculator;
 
     @BeforeEach
     public void setUp() {
         number1 = 5f;
         number2 = 10f;
 
-        calculator = new Calculator();
-        calculator.getNumbers(number1, number2);
+        calculator = new CalculatorService();
     }
 
     @Test
     public void sum() {
-        float result = number1 + number2;
-        assertEquals(result, calculator.plus());
+        String result = number1 + " + " + number2 + " = " + (number1+number2);
+        assertEquals(result, calculator.plus(number1, number2));
     }
 
     @Test
     public void minus() {
-        float result = number1 - number2;
-        assertEquals(result, calculator.minus());
+        String result = number1 + " - " + number2 + " = " + (number1-number2);
+        assertEquals(result, calculator.minus(number1, number2));
     }
 
     @Test
     public void multiply() {
-        float result = number1 * number2;
-        assertEquals(result, calculator.multiply());
+        String result = number1 + " * " + number2 + " = " + (number1*number2);
+        assertEquals(result, calculator.multiply(number1, number2));
     }
 
     @Test
     public void divide() {
         if (number2 == 0)
             fail("Делитель равен нулю! На ноль делить нельзя!");
-        float result = number1 / number2;
-        assertEquals(result, calculator.divide());
+        String result = number1 + " / " + number2 + " = " + (number1/number2);
+        assertEquals(result, calculator.divide(number1, number2));
     }
 }

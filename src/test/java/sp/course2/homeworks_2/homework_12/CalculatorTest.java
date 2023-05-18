@@ -13,7 +13,7 @@ public class CalculatorTest {
     @BeforeEach
     public void setUp() {
         number1 = 5f;
-        number2 = 10f;
+        number2 = 0f;
 
         calculator = new CalculatorService();
     }
@@ -42,5 +42,15 @@ public class CalculatorTest {
             fail("Делитель равен нулю! На ноль делить нельзя!");
         String result = number1 + " / " + number2 + " = " + (number1/number2);
         assertEquals(result, calculator.divide(number1, number2));
+    }
+
+    @Test
+    public void proveDelProve() {
+        String result = "Делить на 0 нельзя!!!";
+        try {
+            if (number2 == 0) throw new NumLessThanZero(result);
+        } catch (NumLessThanZero ex) {
+            assertEquals(result, ex.getMessage());
+        }
     }
 }

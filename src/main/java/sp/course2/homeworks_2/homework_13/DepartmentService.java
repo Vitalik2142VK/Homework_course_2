@@ -1,11 +1,19 @@
 package sp.course2.homeworks_2.homework_13;
 
+import org.springframework.stereotype.Service;
 import sp.course2.homeworks_2.homework_13.exeptions.EmployeeNotFoundException;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Service
 public class DepartmentService {
+
+    private final List<Employee> employees;
+
+    public DepartmentService(EmployeeService employeeService) {
+        this.employees = employeeService.getEmployees();
+    }
 
     public List<Employee> getListEmployeesInDepartment(int department) {
         List<Employee> departmentEmployees = employees.stream()

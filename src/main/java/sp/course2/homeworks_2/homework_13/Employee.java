@@ -46,6 +46,14 @@ public class Employee {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return department == employee.department && wages == employee.wages && firstName.equals(employee.firstName) && lastName.equals(employee.lastName);
+    }
+
+    @Override
     public String toString() {
         return "Имя: " + firstName + " | Фамилия: " + lastName + " | Отдел: " + department + " | ЗП: " + wages;
     }

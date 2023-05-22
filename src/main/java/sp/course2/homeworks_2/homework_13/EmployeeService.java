@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import sp.course2.homeworks_2.homework_13.exeptions.*;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class EmployeeService {
@@ -67,9 +66,9 @@ public class EmployeeService {
         }
     }
 
-
+    // Вспомогательные методы
     public List<Employee> getEmployees() {
-        return employees;
+        return new ArrayList<>(employees);
     }
 
     public void removeAllEmployees() {

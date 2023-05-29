@@ -1,4 +1,4 @@
-package sp.course2.homeworks_2.homework_15;
+package sp.course2.homeworks_2.homework_15_16;
 
 public interface ListInteger {
     Integer add(Integer item);

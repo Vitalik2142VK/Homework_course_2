@@ -1,8 +1,4 @@
-package sp.course2.homeworks_2.homework_15;
-
-import java.sql.Array;
-import java.util.Arrays;
-import java.util.Random;
+package sp.course2.homeworks_2.homework_15_16;
 
 public class Main {
     private static void swapElements(Integer[] arr, int indexA, int indexB) {
@@ -79,9 +75,10 @@ public class Main {
 //        sort3(arr);
 //        System.out.println(System.currentTimeMillis() - start_3);
 //        System.out.println("\n-----#####-----\n");
-        Integer[] integer = new Integer[]{5, 1, 8, 12, 6};
+        Integer[] integer = new Integer[]{5, 1, 8, 12, 6, 4, 54, 23, 67, 15};
 
         ListInteger listInteger = new ArrayListInteger(integer);
-        listInteger.contains(0);
+        System.out.println(listInteger.contains(67));
+
     }
 }

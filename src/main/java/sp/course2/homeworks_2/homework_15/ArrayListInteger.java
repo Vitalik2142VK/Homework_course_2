@@ -1,22 +1,23 @@
-package sp.course2.homeworks_2.homework_14;
+package sp.course2.homeworks_2.homework_15;
 
+import sp.course2.homeworks_2.homework_14.ListString;
 import sp.course2.homeworks_2.homework_14.exceptions.GoingOutsideArrayException;
 import sp.course2.homeworks_2.homework_14.exceptions.NotFindElementException;
 
-public class ArrayListString implements ListString{
-    private String[] array;
+public class ArrayListInteger implements ListInteger{
+    private Integer[] array;
     private int size = 0;
 
-    public ArrayListString() {
-        array = new String[5];
+    public ArrayListInteger() {
+        array = new Integer[5];
     }
 
-    public ArrayListString(int length) {
+    public ArrayListInteger(int length) {
         if (length <= 0) throw new GoingOutsideArrayException("length - должен быть больше 0");
-        array = new String[length];
+        array = new Integer[length];
     }
 
-    public ArrayListString(String item) {
+    public ArrayListInteger(Integer item) {
         this();
 
         if (item == null) throw new NullPointerException();
@@ -25,7 +26,7 @@ public class ArrayListString implements ListString{
         size++;
     }
 
-    public ArrayListString(String item, int length) {
+    public ArrayListInteger(Integer item, int length) {
         this(length);
 
         if (item == null) throw new NullPointerException();
@@ -34,29 +35,29 @@ public class ArrayListString implements ListString{
         size++;
     }
 
-    public ArrayListString(String[] items) {
-        for (String item : items) {
+    public ArrayListInteger(Integer[] items) {
+        for (Integer item : items) {
             if (item == null) throw new NullPointerException();
         }
 
-        array = new String[items.length + 5];
+        array = new Integer[items.length + 5];
         System.arraycopy(items, 0 , array, 0, items.length);
         this.size = items.length;
     }
 
-    public ArrayListString(String[] items, int length) {
-        for (String item : items) {
+    public ArrayListInteger(Integer[] items, int length) {
+        for (Integer item : items) {
             if (item == null) throw new NullPointerException();
         }
         if (length <= 0) throw new GoingOutsideArrayException("length - должен быть больше 0");
 
-        array = new String[items.length + length];
+        array = new Integer[items.length + length];
         System.arraycopy(items, 0 , array, 0, items.length);
         this.size = items.length;
     }
 
     @Override
-    public String add(String item) {
+    public Integer add(Integer item) {
         if (item == null) throw new NullPointerException();
 
         if (size == array.length)
@@ -67,7 +68,7 @@ public class ArrayListString implements ListString{
     }
 
     @Override
-    public String add(int index, String item) {
+    public Integer add(int index, Integer item) {
         if (item == null) throw new NullPointerException();
         if (index > size || index < 0) throw new GoingOutsideArrayException("Попытка выхода за пределы массива!");
 
@@ -86,7 +87,7 @@ public class ArrayListString implements ListString{
     }
 
     @Override
-    public String set(int index, String item) {
+    public Integer set(int index, Integer item) {
         if (item == null) throw new NullPointerException();
         if (index > size || index < 0) throw new GoingOutsideArrayException("Попытка выхода за пределы массива!");
         array[index] = item;
@@ -94,10 +95,10 @@ public class ArrayListString implements ListString{
     }
 
     @Override
-    public String remove(String item) {
+    public Integer remove(Integer item) {
         if (item == null) throw new NullPointerException();
 
-        String remove = null;
+        Integer remove = null;
         for (int i = 0; i < size; i++) {
             if (array[i].equals(item)) {
                 remove = array[i];
@@ -115,10 +116,10 @@ public class ArrayListString implements ListString{
     }
 
     @Override
-    public String remove(int index) {
+    public Integer remove(int index) {
         if (index > size || index < 0) throw new GoingOutsideArrayException("Попытка выхода за пределы массива!");
 
-        String remove = array[index];
+        Integer remove = array[index];
         size--;
         for (int i = index; i < size; i++) {
             array[i] = array[i+1];
@@ -129,17 +130,26 @@ public class ArrayListString implements ListString{
     }
 
     @Override
-    public boolean contains(String item) {
-        for (int i = 0; i < size; i++) {
-            if (array[i].equals(item)) {
+    public boolean contains(Integer item) {
+        sort();
+        int min = 0, max = size - 1, mid;
+
+        while (min <= max && min >= 0) {
+            mid = (min + max) / 2;
+
+            if (array[mid].equals(item))
                 return true;
-            }
+
+            if (item < array[mid])
+                min--;
+            else
+                min++;
         }
         return false;
     }
 
     @Override
-    public int indexOf(String item) {
+    public int indexOf(Integer item) {
         for (int i = 0; i < size; i++) {
             if (array[i].equals(item)) {
                 return i;
@@ -149,7 +159,7 @@ public class ArrayListString implements ListString{
     }
 
     @Override
-    public int lastIndexOf(String item) {
+    public int lastIndexOf(Integer item) {
         for (int i = size-1; i >= 0; i--) {
             if (array[i].equals(item)) {
                 return i;
@@ -159,18 +169,18 @@ public class ArrayListString implements ListString{
     }
 
     @Override
-    public String get(int index) {
+    public Integer get(int index) {
         if (index > size || index < 0) throw new GoingOutsideArrayException("Попытка выхода за пределы массива!");
 
         return array[index];
     }
 
     @Override
-    public boolean equals(final ListString otherList) {
+    public boolean equals(final ListInteger otherList) {
         if (otherList == null) throw new NullPointerException();
         if (this == otherList) return true;
         if (this.size != otherList.size()) return false;
-        String[] otherArray = otherList.toArray();
+        Integer[] otherArray = otherList.toArray();
         for (int i = 0; i < size; i++) {
             if (!array[i].equals(otherArray[i])) return false;
         }
@@ -189,13 +199,13 @@ public class ArrayListString implements ListString{
 
     @Override
     public void clear() {
-        array = new String[5];
+        array = new Integer[5];
         size = 0;
     }
 
     @Override
-    public String[] toArray() {
-        String[] result = new String[size];
+    public Integer[] toArray() {
+        Integer[] result = new Integer[size];
         System.arraycopy(array, 0, result, 0, size);
         return result;
     }
@@ -203,14 +213,29 @@ public class ArrayListString implements ListString{
     //Доп. методы
     public void addAdditionalCells(int addCells) {
         if (addCells <= 0) return;
-        String[] newList = new String[array.length + addCells];
+        Integer[] newList = new Integer[array.length + addCells];
         System.arraycopy(array, 0, newList, 0, array.length);
         array = newList;
     }
 
     public void removeAdditionalCells() {
-        String[] newList = new String[size];
+        Integer[] newList = new Integer[size];
         System.arraycopy(array, 0, newList, 0, size);
         array = newList;
+    }
+
+    //Метод сортировки
+    private void sort() {
+        int minInx, temp;
+        for (int i = 0; i < size - 1; i++) {
+            minInx = i;
+            for (int j = i + 1; j < size; j++) {
+                if (array[j] < array[minInx])
+                    minInx = j;
+            }
+            temp = array[minInx];
+            array[minInx] = array[i];
+            array[i] = temp;
+        }
     }
 }

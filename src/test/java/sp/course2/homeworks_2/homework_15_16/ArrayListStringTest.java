@@ -1,4 +1,4 @@
-package sp.course2.homeworks_2.homework_15;
+package sp.course2.homeworks_2.homework_15_16;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,6 +1,5 @@
-package sp.course2.homeworks_2.homework_15;
+package sp.course2.homeworks_2.homework_15_16;
 
-import sp.course2.homeworks_2.homework_14.ListString;
 import sp.course2.homeworks_2.homework_14.exceptions.GoingOutsideArrayException;
 import sp.course2.homeworks_2.homework_14.exceptions.NotFindElementException;
 
@@ -61,7 +60,7 @@ public class ArrayListInteger implements ListInteger{
         if (item == null) throw new NullPointerException();
 
         if (size == array.length)
-            addAdditionalCells(5);
+            grow();
 
         array[size++] = item;
         return array[size - 1];
@@ -73,7 +72,7 @@ public class ArrayListInteger implements ListInteger{
         if (index > size || index < 0) throw new GoingOutsideArrayException("Попытка выхода за пределы массива!");
 
         if (size == array.length)
-            addAdditionalCells(5);
+            grow();
 
         for (int i = size; i >= index; i--) {
             if (i == index) {
@@ -211,14 +210,13 @@ public class ArrayListInteger implements ListInteger{
     }
 
     //Доп. методы
-    public void addAdditionalCells(int addCells) {
-        if (addCells <= 0) return;
-        Integer[] newList = new Integer[array.length + addCells];
+    private void grow() {
+        Integer[] newList = new Integer[array.length + (int)(array.length * 1.5)];
         System.arraycopy(array, 0, newList, 0, array.length);
         array = newList;
     }
 
-    public void removeAdditionalCells() {
+    private void removeAdditionalCells() {
         Integer[] newList = new Integer[size];
         System.arraycopy(array, 0, newList, 0, size);
         array = newList;
@@ -226,16 +224,46 @@ public class ArrayListInteger implements ListInteger{
 
     //Метод сортировки
     private void sort() {
-        int minInx, temp;
-        for (int i = 0; i < size - 1; i++) {
-            minInx = i;
-            for (int j = i + 1; j < size; j++) {
-                if (array[j] < array[minInx])
-                    minInx = j;
-            }
-            temp = array[minInx];
-            array[minInx] = array[i];
-            array[i] = temp;
+//        int minInx;
+//        for (int i = 0; i < size - 1; i++) {
+//            minInx = i;
+//            for (int j = i + 1; j < size; j++) {
+//                if (array[j] < array[minInx])
+//                    minInx = j;
+//            }
+//            swapElements(array, i, minInx);
+//        }
+
+        quickSort(array, 0, size - 1);
+    }
+
+    private void quickSort(Integer[] arr, int begin, int end) {
+        if (begin < end) {
+            int partitionIndex = partition(arr, begin, end);
+
+            quickSort(arr, begin, partitionIndex - 1);
+            quickSort(arr, partitionIndex + 1, end);
         }
+    }
+
+    private int partition(Integer[] arr, int begin, int end) {
+        int pivot = arr[end];
+        int i = (begin - 1);
+
+        for (int j = begin; j < end; j++) {
+            if (arr[j] <= pivot) {
+                i++;
+            }
+        }
+
+        swapElements(arr, i + 1, end);
+        return i + 1;
+    }
+
+
+    private void swapElements(Integer[] arr, int num1, int num2) {
+        int temp = array[num2];
+        array[num2] = array[num1];
+        array[num1] = temp;
     }
 }
